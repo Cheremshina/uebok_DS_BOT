@@ -1,28 +1,44 @@
+# config.py
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
-# Токен Discord бота (получить на https://discord.com/developers/applications)
+# -------------------------------------------------
+# Discord
+# -------------------------------------------------
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 
-# IDs пользователей, которым разрешено использовать /lobotomy
-# Получить ID: Настройки Discord → Продвинутые → Режим разработчика → ПКМ по пользователю → Копировать ID
-ALLOWED_USERS = {os.getenv("ALLOWED_USER_1"), os.getenv("ALLOWED_USER_2"), os.getenv("ALLOWED_USER_3")}
-
-# Убрать пустые значения из ALLOWED_USERS
+# Пользователи, которым разрешено использовать /lobotomy
+ALLOWED_USERS = {
+    os.getenv("ALLOWED_USER_1"),
+    os.getenv("ALLOWED_USER_2"),
+    os.getenv("ALLOWED_USER_3"),
+}
 ALLOWED_USERS = {uid for uid in ALLOWED_USERS if uid}
 
-# Настройки локального ИИ
-# Ollama: http://localhost:11434
-# OpenAI compatible: http://localhost:11434/v1
-AI_API_URL = os.getenv("AI_API_URL", "http://localhost:11434")
-AI_MODEL = os.getenv("AI_MODEL", "qwen2.5vl")
+# -------------------------------------------------
+# Groq (OpenAI‑совместимый) API
+# -------------------------------------------------
+# Токен, полученный в личном кабинете https://console.groq.com/keys
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
-# Максимальное количество сообщений в контексте (для экономии памяти)
-MAX_CONTEXT_MESSAGES = 20
+# Базовый URL Groq (по‑умолчанию – OpenAI‑совместимый эндпоинт)
+GROQ_API_URL = os.getenv(
+    "GROQ_API_URL", "https://api.groq.com/openai/v1"
+)  # можно переопределить, если нужен прокси
 
-# Прокси для Discord и ИИ (если за прокси/корпоративной сетью)
-# Формат: http://host:port или http://user:pass@host:port
+# Модель, которую вы хотите использовать. Примеры:
+#   "mixtral-8x7b-32768", "llama3-70b-8192", "gemma-7b-it"
+GROQ_MODEL = os.getenv("GROQ_MODEL", "mixtral-8x7b-32768")
+
+# -------------------------------------------------
+# Прокси (опционально)
+# -------------------------------------------------
 DISCORD_PROXY = os.getenv("DISCORD_PROXY", "")
-AI_PROXY = os.getenv("AI_PROXY", "")  # ИИ без прокси (локальный)
+AI_PROXY = os.getenv("AI_PROXY", "")      # будет использоваться для запросов к Groq
+
+# -------------------------------------------------
+# Прочие настройки
+# -------------------------------------------------
+MAX_CONTEXT_MESSAGES = 20
