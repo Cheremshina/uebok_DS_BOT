@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GigaCodeAgentSettings">
+    <option name="autoApproveEdits" value="true" />
+    <option name="autoApprovedCommands">
+      <list>
+        <Execute>
+          <option name="pattern" value="C:\Users\Michail\AppData\Local\Programs\Python\Python312\python.exe check.py" />
+        </Execute>
+      </list>
+    </option>
+  </component>
+</project>
